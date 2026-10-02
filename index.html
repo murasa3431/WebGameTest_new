@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>10秒タップゲーム</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 30px; }
+    button { font-size: 24px; padding: 15px 25px; margin: 10px; }
+    #tap { display: none; background: tomato; color: white; }
+  </style>
+</head>
+<body>
+  <h1>10秒タップゲーム</h1>
+  <p>残り <span id="time">10</span> 秒 ／ 得点 <span id="score">0</span></p>
+  <button id="start">スタート</button>
+  <button id="tap">タップ！</button>
+  <p id="message">10秒間で何回押せるかな？</p>
+
+  <script>
+    let time = 10;
+    let score = 0;
+    let timer;
+
+    document.getElementById("start").onclick = function () {
+      clearInterval(timer);
+      time = 10;
+      score = 0;
+      document.getElementById("time").textContent = time;
+      document.getElementById("score").textContent = score;
+      document.getElementById("message").textContent = "連打しよう！";
+      document.getElementById("tap").style.display = "inline-block";
+
+      timer = setInterval(function () {
+        time--;
+        document.getElementById("time").textContent = time;
+        if (time === 0) {
+          clearInterval(timer);
+          document.getElementById("tap").style.display = "none";
+          document.getElementById("message").textContent =
+            "終了！ " + score + " 点でした";
+        }
+      }, 1000);
+    };
+
+    document.getElementById("tap").onclick = function () {
+      score++;
+      document.getElementById("score").textContent = score;
+    };
+  </script>
+</body>
+</html>
